@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  eureka-server:
+    image: eureka-server-img:latest
+    networks:
+      - red-micro-servicio
+    ports:
+      - 8761:8761
+
+
+  servicio-notificaciones:
+    image: servicio-notificaciones-img:latest
+    networks:
+      - red-micro-servicio
+    ports:
+      - 2128:2128
+    depends_on:
+      - eureka-server
+
+networks:
+  red-micro-servicio:
