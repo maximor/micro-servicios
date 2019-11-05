@@ -67,4 +67,12 @@ public class Orden {
         this.Id_User = Id_User;
     }
 
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto equipo) {
+        this.producto = producto;
+    }
+
 }
