@@ -4,12 +4,13 @@ import java.time.LocalDate;
 
 public class Orden {
 
-
+    private Producto producto;
     private String Id_Orden;
     private Long Id_User;
     private String Plan;
     private float Monto;
     private LocalDate Fecha;
+
 
 
 
