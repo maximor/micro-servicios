@@ -2,33 +2,33 @@ package micro.servicioproductos.entidades;
 
 public class Producto {
 
-    private String id="";
-    private String plan = "";
-    private float monto = 0;
+    private String id_Producto="";
+    private String Plan = "";
+    private float Monto = 0;
 
 
     public String getId() {
-        return id;
+        return id_Producto;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id_Producto = id;
     }
 
     public String getPlan() {
-        return plan;
+        return Plan;
     }
 
     public void setPlan(String plan) {
-        this.plan = plan;
+        this.Plan = plan;
     }
 
     public float getMonto() {
-        return monto;
+        return Monto;
     }
 
     public void setMonto(float monto) {
-        this.monto = monto;
+        this.Monto = monto;
     }
 
 }
