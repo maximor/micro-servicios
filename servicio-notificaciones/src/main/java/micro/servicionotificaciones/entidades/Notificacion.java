@@ -6,7 +6,8 @@ public class Notificacion {
     private String asunto;
     private String cuerpo;
 
-    public Notificacion() { }
+    public Notificacion() {
+    }
 
     public Notificacion(String emisor, String receptor, String asunto, String cuerpo) {
         this.emisor = emisor;
