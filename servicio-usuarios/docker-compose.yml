@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  usuarios:
+    image: servicio-usuarios-1328
+    networks:
+      - servicio-usuarios-network
+    ports:
+      - 1328:1328
+    depends_on:
+      - servicio-usuariosdb
+
+  servicio-usuariosdb:
+    image: mysql:8
+    networks:
+      - servicio-usuarios-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=servicio-usuariosdb
+    volumes:
+      - mysql_usuariosdb:/var/lib/mysql-usuarios
+
+volumes:
+  mysql_usuariosdb:
+
+networks:
+  servicio-usuarios-network:
