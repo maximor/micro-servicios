@@ -25,10 +25,10 @@ public class ServicioUsuariosApplication {
         return args -> {
             System.out.println("Creando los datos por defecto...");
             System.out.println("Creando ROLES:");
-            System.out.println("1- ROLE_ANDMIN\n2- ROLE_USUARIO\n3- ROLE_EMPLEADO");
+            System.out.println("1- ROLE_ANDMIN\n2- ROLE_CLIENTE\n3- ROLE_EMPLEADO");
             Rol rolAdmin = rolRepository.save(new Rol("ROLE_ADMIN"));
             rolRepository.saveAll(Arrays.asList(
-                    new Rol("ROLE_USUARIO"),
+                    new Rol("ROLE_CLIENTE"),
                     new Rol("ROLE_EMPLEADO")
             ));
 

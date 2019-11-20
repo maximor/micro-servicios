@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -251,4 +252,111 @@ public class UsuarioControlador {
         }
     }
 
+    @RequestMapping(method = RequestMethod.POST, value = "/usuario/crear/empleado")
+    public ResponseEntity crearUsuarioConRolEmpleado(@RequestBody Usuario busuario){
+        if(busuario.getNombre() == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new MensajeError(
+                            400,
+                            new Date(),
+                            "Bad Request",
+                            "debe de llenar el campo [nombre]",
+                            "/usuario/crear"
+
+                    ));
+        }else if(busuario.getUsername() == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new MensajeError(
+                            400,
+                            new Date(),
+                            "Bad Request",
+                            "debe de llenar el campo [username]",
+                            "/usuario/crear"
+
+                    ));
+        }else if(busuario.getEmail() == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new MensajeError(
+                            400,
+                            new Date(),
+                            "Bad Request",
+                            "debe de llenar el campo [email]",
+                            "/usuario/crear"
+
+                    ));
+        }else if(busuario.getPassword() == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new MensajeError(
+                            400,
+                            new Date(),
+                            "Bad Request",
+                            "debe de llenar el campo [password]",
+                            "/usuario/crear"
+
+                    ));
+        }
+
+        //se busca el rol de empleados en la base de datos
+        busuario.setRoles(new HashSet<Rol>(Arrays.asList(rolRepository.findByNombre("ROLE_EMPLEADO"))));
+        busuario.setPassword(new BCryptPasswordEncoder().encode(busuario.getPassword()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(busuario));
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/usuario/crear/cliente")
+    public ResponseEntity crearUsuarioConRolUsuario(@RequestBody Usuario busuario){
+        if(busuario.getNombre() == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new MensajeError(
+                            400,
+                            new Date(),
+                            "Bad Request",
+                            "debe de llenar el campo [nombre]",
+                            "/usuario/crear"
+
+                    ));
+        }else if(busuario.getUsername() == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new MensajeError(
+                            400,
+                            new Date(),
+                            "Bad Request",
+                            "debe de llenar el campo [username]",
+                            "/usuario/crear"
+
+                    ));
+        }else if(busuario.getEmail() == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new MensajeError(
+                            400,
+                            new Date(),
+                            "Bad Request",
+                            "debe de llenar el campo [email]",
+                            "/usuario/crear"
+
+                    ));
+        }else if(busuario.getPassword() == null){
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new MensajeError(
+                            400,
+                            new Date(),
+                            "Bad Request",
+                            "debe de llenar el campo [password]",
+                            "/usuario/crear"
+
+                    ));
+        }
+
+        //se busca el rol de empleados en la base de datos
+        busuario.setRoles(new HashSet<Rol>(Arrays.asList(rolRepository.findByNombre("ROLE_CLIENTE"))));
+        busuario.setPassword(new BCryptPasswordEncoder().encode(busuario.getPassword()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(busuario));
+    }
 }
