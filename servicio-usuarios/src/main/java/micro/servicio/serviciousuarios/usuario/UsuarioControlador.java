@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @RestController
+@RequestMapping("/servicio-usuarios")
 public class UsuarioControlador {
     @Autowired
     private UsuarioRepository usuarioRepository;
