@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @SpringBootApplication
 @RestController
+@RequestMapping("/servicio-notificaciones")
 public class ServicioNotificacionesApplication {
     @Autowired
     private NotificacionRepository notificacionRepository;
