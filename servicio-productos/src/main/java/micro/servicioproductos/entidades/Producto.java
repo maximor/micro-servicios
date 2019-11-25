@@ -1,5 +1,10 @@
 package micro.servicioproductos.entidades;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class Producto {
 
     private String id_Producto="";

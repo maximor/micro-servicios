@@ -1,6 +1,7 @@
 package micro.servicioproductos.entidades;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 public class Orden {
 
@@ -71,8 +72,16 @@ public class Orden {
         return producto;
     }
 
-    public void setProducto(Producto equipo) {
+    public void setProducto(Producto equipo) { this.producto = producto; }
+
+    public Set<ProductoOrdenado> getProductos() {
+        return producto;
+    }
+
+    public void setProductos(Set<ProductoOrdenado> productos) {
         this.producto = producto;
     }
+}
+
 
 }
