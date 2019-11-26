@@ -44,6 +44,7 @@ public class RestUtil {
     public void actualizarUsuario(Usuario usuario){
         String url = "http://localhost:8080/servicio-usuarios/usuario/actualizar";
 
+        restTemplate = new RestTemplate();
         headers = new HttpHeaders();
         headers.set("Authorization", "Bearer "+usuarioToken);
         HttpEntity<Usuario> requestEntity = new HttpEntity<>(usuario, headers);
@@ -52,10 +53,11 @@ public class RestUtil {
        System.out.println(resultado.getBody());
     }
 
-    public  ResponseEntity cambiarContrasena(String username, CambiarContrasena cambiarContrasena){
+    public ResponseEntity cambiarContrasena(String username, CambiarContrasena cambiarContrasena){
         String url = "http://localhost:8080/servicio-usuarios/usuario/actualizar/"+username+"/"
                 +cambiarContrasena.getOldPassword()+"/"+cambiarContrasena.getNewPassword();
 
+        restTemplate = new RestTemplate();
         headers = new HttpHeaders();
         headers.set("Authorization", "Bearer "+usuarioToken);
         HttpEntity<String> requestEntity = new HttpEntity<>(null, headers);
@@ -63,5 +65,15 @@ public class RestUtil {
         return resultado;
     }
 
+    public ResponseEntity crearUsuarioCliente(Usuario usuario){
+        String url = "http://localhost:8080/servicio-usuarios/usuario/crear/cliente";
+
+        restTemplate = new RestTemplate();
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + usuarioToken);
+        HttpEntity<Usuario> requestEntity = new HttpEntity<>(usuario, headers);
+        ResponseEntity<String> resultado = restTemplate.postForEntity(url, requestEntity, String.class);
+        return resultado;
+    }
 
 }
