@@ -46,7 +46,7 @@
                     <span class="db"><img src="images/logo.png" alt="logo" /></span>
                 </div>
                 <!-- Form -->
-                <form class="form-horizontal m-t-20" id="loginform" action="index.html">
+                <form class="form-horizontal m-t-20" name="f" id="loginform" action="/login" method="post">
                     <div class="row p-b-30">
                         <div class="col-12">
                             <div class="input-group mb-3">
@@ -68,7 +68,7 @@
                             <div class="form-group">
                                 <div class="p-t-20">
                                     <button class="btn btn-info" id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> Olvide Mi Contraseña?</button>
-                                    <button class="btn btn-success float-right" type="submit">Entrar</button>
+                                    <button class="btn btn-success float-right" name="submit" type="submit" value="submit">Entrar</button>
                                 </div>
                             </div>
                         </div>
@@ -78,6 +78,13 @@
                                     <a class="btn btn-block btn-lg btn-info" href="/registro">Registrar</a>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-12">
+                            <#if RequestParameters.error??>
+                                <div class="alert alert-danger" role="alert">
+                                    <h4 class="alert-heading">Usuario o Contraseña incorrectos</h4>
+                                </div>
+                            </#if>
                         </div>
                     </div>
                 </form>

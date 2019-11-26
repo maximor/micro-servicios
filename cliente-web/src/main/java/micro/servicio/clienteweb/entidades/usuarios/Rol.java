@@ -1,5 +1,8 @@
 package micro.servicio.clienteweb.entidades.usuarios;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Rol {
     private int id;
     private String nombre;
