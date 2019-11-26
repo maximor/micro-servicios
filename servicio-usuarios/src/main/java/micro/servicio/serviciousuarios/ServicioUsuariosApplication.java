@@ -38,7 +38,7 @@ public class ServicioUsuariosApplication {
             usuario.setNombre("Admin Admin");
             usuario.setUsername("admin");
             usuario.setPassword(new BCryptPasswordEncoder().encode("admin"));
-            usuario.setEmail("amind@admin.com");
+            usuario.setEmail("admin@admin.com");
             usuario.setRoles(new HashSet<>(Arrays.asList(rolAdmin)));
             usuarioRepository.save(usuario);
         };

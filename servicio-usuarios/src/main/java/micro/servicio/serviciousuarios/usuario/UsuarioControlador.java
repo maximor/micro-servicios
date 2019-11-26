@@ -177,7 +177,7 @@ public class UsuarioControlador {
                 && !busuario.getEmail().equals(usuario.getEmail())){
             usuario.setEmail(busuario.getEmail());
         }
-
+        usuarioRepository.save(usuario);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body("");
