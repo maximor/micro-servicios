@@ -1,5 +1,6 @@
 package micro.servicio.clienteweb.utilidades;
 
+import micro.servicio.clienteweb.entidades.productos.Plan;
 import micro.servicio.clienteweb.entidades.usuarios.CambiarContrasena;
 import micro.servicio.clienteweb.entidades.usuarios.Usuario;
 import org.springframework.http.HttpEntity;
@@ -7,6 +8,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class RestUtil {
 
@@ -74,6 +78,24 @@ public class RestUtil {
         HttpEntity<Usuario> requestEntity = new HttpEntity<>(usuario, headers);
         ResponseEntity<String> resultado = restTemplate.postForEntity(url, requestEntity, String.class);
         return resultado;
+    }
+
+    //TODO AGREGAR MANEJO DE TOKEN
+    //servicio-productos
+    public List<Plan> getPlanes(){
+        String url = "http://localhost:8080/servicio-productos/planes";
+
+        restTemplate = new RestTemplate();
+        ResponseEntity<Plan[]> resultado = restTemplate.getForEntity(url, Plan[].class);
+        return Arrays.asList(resultado.getBody());
+    }
+
+    public Plan getPlanPorNombre(String nombre){
+        String url = "http://localhost:8080/servicio-productos/plan/"+nombre;
+
+        restTemplate = new RestTemplate();
+        ResponseEntity<Plan> resultado = restTemplate.getForEntity(url, Plan.class);
+        return resultado.getBody();
     }
 
 }
