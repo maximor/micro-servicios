@@ -1,7 +1,10 @@
 package micro.servicio.clienteweb.entidades.productos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Plan {
     private int id;
     private Date fechaCreacion;

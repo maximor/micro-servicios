@@ -1,5 +1,8 @@
 package micro.servicio.clienteweb.entidades.notificaciones;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Notificacion {
     private int id;
     private String emisor;

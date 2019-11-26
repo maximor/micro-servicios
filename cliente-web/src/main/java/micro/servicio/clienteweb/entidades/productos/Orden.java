@@ -1,8 +1,11 @@
 package micro.servicio.clienteweb.entidades.productos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Orden {
     private int id;
     private Date fechaCreacion;

@@ -1,7 +1,10 @@
 package micro.servicio.clienteweb.entidades.error;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MensajeError {
     private int estado;
     private Date fecha;
