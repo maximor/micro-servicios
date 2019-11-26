@@ -142,7 +142,7 @@ public class UsuarioControlador {
         //se busca el rol en la base de datos
         HashSet<Rol> roles = new HashSet<>();
         for(Rol rol :  busuario.getRoles()){
-             roles.add(rolRepository.findByNombre(rol.getNombre()));
+            roles.add(rolRepository.findByNombre(rol.getNombre()));
         }
         busuario.setRoles(roles);
         busuario.setPassword(new BCryptPasswordEncoder().encode(busuario.getPassword()));
@@ -192,11 +192,11 @@ public class UsuarioControlador {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(new MensajeError(
-                       404,
-                        new Date(),
-                        "Not Found",
-                        "no se encontró el usuario ["+oldUsername+"] que se quiere modificar",
-                        "/usuario/actualizar/"+oldUsername+"/"+newUsername
+                            404,
+                            new Date(),
+                            "Not Found",
+                            "no se encontró el usuario ["+oldUsername+"] que se quiere modificar",
+                            "/usuario/actualizar/"+oldUsername+"/"+newUsername
                     ));
         }else{
             if(nuevoUsuario != null){
@@ -304,6 +304,7 @@ public class UsuarioControlador {
         //se busca el rol de empleados en la base de datos
         busuario.setRoles(new HashSet<Rol>(Arrays.asList(rolRepository.findByNombre("ROLE_EMPLEADO"))));
         busuario.setPassword(new BCryptPasswordEncoder().encode(busuario.getPassword()));
+        busuario.setActivo(true);
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(busuario));
     }
 
@@ -358,6 +359,9 @@ public class UsuarioControlador {
         //se busca el rol de empleados en la base de datos
         busuario.setRoles(new HashSet<Rol>(Arrays.asList(rolRepository.findByNombre("ROLE_CLIENTE"))));
         busuario.setPassword(new BCryptPasswordEncoder().encode(busuario.getPassword()));
+        busuario.setActivo(true);
+        Usuario usuarioAux = null;
+
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(busuario));
     }
 }

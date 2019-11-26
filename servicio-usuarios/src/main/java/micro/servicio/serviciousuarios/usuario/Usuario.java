@@ -16,7 +16,7 @@ public class Usuario {
     private String password;
     @Column(nullable = false)
     private String nombre;
-    @Column(nullable = false, unique = false)
+    @Column(nullable = false, unique = true)
     private String email;
     private boolean activo = true;
     @ManyToMany(fetch = FetchType.EAGER)

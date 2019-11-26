@@ -32,7 +32,7 @@ public class Seguridad  extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
 
         http.authorizeRequests()
-                .antMatchers("/", "/token", "/dbconsole/**").permitAll()
+                .antMatchers("/", "/servicio-usuarios/token", "/servicio-usuarios/dbconsole/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
