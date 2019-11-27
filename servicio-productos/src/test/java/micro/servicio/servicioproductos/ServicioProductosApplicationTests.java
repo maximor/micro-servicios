@@ -1,7 +1,7 @@
-package micro.servicioproductos;
+package micro.servicio.servicioproductos;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class ServicioProductosApplicationTests {
