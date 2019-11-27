@@ -177,6 +177,11 @@ public class UsuarioControlador {
                 && !busuario.getEmail().equals(usuario.getEmail())){
             usuario.setEmail(busuario.getEmail());
         }
+
+        if(busuario.isActivo() != usuario.isActivo()){
+            usuario.setActivo(busuario.isActivo());
+        }
+
         usuarioRepository.save(usuario);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
