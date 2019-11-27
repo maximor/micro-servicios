@@ -210,6 +210,7 @@
                                     <span class="badge badge-pill badge-secondary">${cantidad}</span>
                                 </#if>
                                 </a>
+                            <a class="dropdown-item" href="/usuarios"><i class="ti-settings m-r-5 m-l-5"></i> Manejo de Usuarios</a>
 <#--                            <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>-->
 <#--                            <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>-->
 <#--                            <div class="dropdown-divider"></div>-->
