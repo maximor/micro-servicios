@@ -41,12 +41,15 @@
                         <li class="sidebar-item"><a href="authentication-register.html" class="sidebar-link"><i class="mdi mdi-all-inclusive"></i><span class="hide-menu"> Register </span></a></li>
                     </ul>
                 </li>
-                <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Manejo de Usuarios </span></a>
-                    <ul aria-expanded="false" class="collapse  first-level">
-                        <li class="sidebar-item"><a href="/usuarios" class="sidebar-link"><i class="fas fa-circle"></i><span class="hide-menu"> Crear Empleados </span></a></li>
-                        <li class="sidebar-item"><a href="/ver-usuarios" class="sidebar-link"><i class="fas fa-circle"></i><span class="hide-menu"> Ver Empleados </span></a></li>
-                    </ul>
-                </li>
+                <#if usuario?? && usuario.getRoles()[0].getNombre() == "ROLE_ADMIN">
+                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Manejo de Usuarios </span></a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item"><a href="/usuarios" class="sidebar-link"><i class="fas fa-circle"></i><span class="hide-menu"> Crear Empleados </span></a></li>
+                            <li class="sidebar-item"><a href="/ver-usuarios" class="sidebar-link"><i class="fas fa-circle"></i><span class="hide-menu"> Ver Empleados </span></a></li>
+                        </ul>
+                    </li>
+                </#if>
+
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

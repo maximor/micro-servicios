@@ -23,6 +23,7 @@ public class AplicacionControlador {
         }
 
         modelo.addAttribute("planes", RestUtil.getInstance().getPlanes());
+        modelo.addAttribute("usuario", RestUtil.getInstance().getUsuario(principal.getName()));
         return "index";
     }
 
@@ -47,21 +48,15 @@ public class AplicacionControlador {
     }
 
     @RequestMapping("/carrito")
-    public String carrito(Model modelo, HttpSession httpSession){
+    public String carrito(Principal principal, Model modelo, HttpSession httpSession){
         List<Plan> planes = new ArrayList<>();
         if(httpSession.getAttribute("planes") != null){
             planes = (List<Plan>) httpSession.getAttribute("planes");
             modelo.addAttribute("planesCarrito", planes);
             modelo.addAttribute("cantidad", planes.size());
         }
-
+        modelo.addAttribute("usuario", RestUtil.getInstance().getUsuario(principal.getName()));
         return "carrito";
-    }
-
-    //TODO REALIZAR EL CHECKOUT
-    @RequestMapping("/checkout")
-    public String checkout(Model modelo, HttpSession httpSession){
-        return "checkout";
     }
 
     @RequestMapping("/eliminarCarrito/{indice}")
@@ -74,5 +69,11 @@ public class AplicacionControlador {
         }
 
         return "redirect:/carrito";
+    }
+
+    //TODO REALIZAR EL CHECKOUT Y PAGO VIA PAYPAL
+    @RequestMapping("/checkout")
+    public String checkout(Principal principal, Model modelo, HttpSession httpSession){
+        return "checkout";
     }
 }
