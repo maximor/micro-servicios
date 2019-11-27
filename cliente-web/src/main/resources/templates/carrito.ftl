@@ -8,7 +8,7 @@
         </div>
         <#if planesCarrito?? && cantidad?? && (cantidad > 0)>
             <div class="col-3">
-                <a href="/checkout" class="btn btn-lg btn-warning">Proceder al pago</a>
+                <a href="/checkout" class="btn btn-lg btn-warning">Generar Orden</a>
             </div>
         </#if>
     </div>
@@ -56,7 +56,7 @@
                 <h2 class="page-title">Mi Carrito</h2>
             </div>
             <div class="col-3">
-                <a href="/checkout" class="btn btn-lg btn-warning">Proceder al pago</a>
+                <a href="/checkout" class="btn btn-lg btn-warning">Generar Orden</a>
             </div>
         </#if>
     </div>

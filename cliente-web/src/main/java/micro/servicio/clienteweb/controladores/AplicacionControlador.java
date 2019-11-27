@@ -1,6 +1,8 @@
 package micro.servicio.clienteweb.controladores;
 
+import micro.servicio.clienteweb.entidades.productos.Orden;
 import micro.servicio.clienteweb.entidades.productos.Plan;
+import micro.servicio.clienteweb.entidades.usuarios.Usuario;
 import micro.servicio.clienteweb.utilidades.RestUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,16 +35,21 @@ public class AplicacionControlador {
 
         if(httpSession.getAttribute("planes") != null){
             planes = (List<Plan>) httpSession.getAttribute("planes");
-            planes.add(RestUtil.getInstance().getPlanPorNombre(planNombre));
+            planes = calcularCantidadPlanes(planes, planNombre);
+//            Plan plan = RestUtil.getInstance().getPlanPorNombre(planNombre);
+//            plan.setSeleccionado(true);
+//            planes.add(plan);
             modelo.addAttribute("cantidad", planes.size());
             modelo.addAttribute("planesCarrito", planes);
         }else{
-            planes.add(RestUtil.getInstance().getPlanPorNombre(planNombre));
+            Plan plan = RestUtil.getInstance().getPlanPorNombre(planNombre);
+            plan.setCantidad(1);
+            planes.add(plan);
             httpSession.setAttribute("planes", planes);
             modelo.addAttribute("cantidad", planes.size());
             modelo.addAttribute("planesCarrito", planes);
         }
-
+        httpSession.setAttribute("planes", planes);
         modelo.addAttribute("planes", RestUtil.getInstance().getPlanes());
         return "redirect:/";
     }
@@ -52,8 +59,10 @@ public class AplicacionControlador {
         List<Plan> planes = new ArrayList<>();
         if(httpSession.getAttribute("planes") != null){
             planes = (List<Plan>) httpSession.getAttribute("planes");
+            httpSession.setAttribute("planes", planes);
             modelo.addAttribute("planesCarrito", planes);
             modelo.addAttribute("cantidad", planes.size());
+
         }
         modelo.addAttribute("usuario", RestUtil.getInstance().getUsuario(principal.getName()));
         return "carrito";
@@ -74,6 +83,83 @@ public class AplicacionControlador {
     //TODO REALIZAR EL CHECKOUT Y PAGO VIA PAYPAL
     @RequestMapping("/checkout")
     public String checkout(Principal principal, Model modelo, HttpSession httpSession){
+        List<Plan> planes = (List<Plan>) httpSession.getAttribute("planes");
+
+        if(planes != null && planes.size() > 0){
+            if(httpSession.getAttribute("orden") != null){
+                Orden orden = (Orden) httpSession.getAttribute("orden");
+                orden.setMontoTotal(0);
+                planes.forEach(plan -> {
+                    orden.setMontoTotal(orden.getMontoTotal()+plan.getMonto());
+                });
+                httpSession.setAttribute("orden", orden);
+                modelo.addAttribute("orden", orden);
+            }else{
+                Orden orden = new Orden();
+                orden.setMontoTotal(0);
+                Usuario usuario = RestUtil.getInstance().getUsuario(principal.getName());
+                planes.forEach(plan -> {
+                    orden.setMontoTotal(orden.getMontoTotal()+plan.getMonto());
+                });
+                orden.setEmail(usuario.getEmail());
+                orden.setUserId(usuario.getId());
+                orden.setPlanes(planes);
+                httpSession.setAttribute("orden", orden);
+                modelo.addAttribute("orden", orden);
+                modelo.addAttribute("cantidad", planes.size());
+            }
+
+
+        }else{
+            return "redirect:/";
+        }
+
+        modelo.addAttribute("usuario", RestUtil.getInstance().getUsuario(principal.getName()));
         return "checkout";
+    }
+
+    @RequestMapping("/pagar")
+    public String pagar(Principal principal, Model modelo, HttpSession httpSession){
+        Orden orden = (Orden) httpSession.getAttribute("orden");
+
+        if(orden != null){
+            try{
+                orden.setAbierta(true);
+                orden.setActiva(true);
+               orden = (Orden) RestUtil.getInstance().crearOrden(orden).getBody();
+               httpSession.removeAttribute("orden");
+               httpSession.removeAttribute("planes");
+
+               modelo.addAttribute("mensaje", "Se ha generado una orden, gracias por elegirnos");
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }else {
+            return "redirect:/";
+        }
+        return "pagar";
+    }
+
+    //ideal cuando planes existe solo en la sesion
+    private List<Plan> calcularCantidadPlanes(List<Plan> planes, String nombrePlan){
+        boolean estado = false;
+        int indice = -1;
+        int i = 0;
+        while(i < planes.size()){
+            if(planes.get(i).getNombre().equals(nombrePlan)){
+                estado = true;
+                indice = i;
+                break;
+            }
+            i++;
+        }
+
+        if(estado){
+            planes.get(indice).setCantidad(planes.get(indice).getCantidad()+1);
+        }else{
+            planes.add(RestUtil.getInstance().getPlanPorNombre(nombrePlan));
+        }
+
+        return planes;
     }
 }

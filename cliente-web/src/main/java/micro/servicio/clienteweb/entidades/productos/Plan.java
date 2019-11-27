@@ -11,29 +11,32 @@ public class Plan {
     private Date fechaActualizacion;
     private String nombre;
     private float monto;
+    private int cantidad = 0;
     private String descripcion;
     private boolean activo;
     private int userId;
+    private boolean seleccionado = false;
 
     public Plan() {
     }
 
-    public Plan(Date fechaCreacion, Date fechaActualizacion, String nombre, float monto, String descripcion, boolean activo, int userId) {
-        this.fechaCreacion = fechaCreacion;
-        this.fechaActualizacion = fechaActualizacion;
+    public Plan(int id, String nombre, float monto, int cantidad, String descripcion, boolean activo, int userId) {
+        this.id = id;
         this.nombre = nombre;
         this.monto = monto;
+        this.cantidad = cantidad;
         this.descripcion = descripcion;
         this.activo = activo;
         this.userId = userId;
     }
 
-    public Plan(int id, Date fechaCreacion, Date fechaActualizacion, String nombre, float monto, String descripcion, boolean activo, int userId) {
+    public Plan(int id, Date fechaCreacion, Date fechaActualizacion, String nombre, float monto, int cantidad, String descripcion, boolean activo, int userId) {
         this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.fechaActualizacion = fechaActualizacion;
         this.nombre = nombre;
         this.monto = monto;
+        this.cantidad = cantidad;
         this.descripcion = descripcion;
         this.activo = activo;
         this.userId = userId;
@@ -79,6 +82,14 @@ public class Plan {
         this.monto = monto;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -101,5 +112,13 @@ public class Plan {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public boolean isSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(boolean seleccionado) {
+        this.seleccionado = seleccionado;
     }
 }

@@ -13,7 +13,10 @@
                             <p>${plan.getDescripcion()}</p>
                             <span class="badge badge-secondary">$RD ${plan.getMonto()}</span><br/>
                             <hr>
-                            <a href="/${plan.getNombre()}" class="btn btn-warning">Agregar a Carrito</a>
+                            <button class="btn btn-warning">
+                                <a href="/${plan.getNombre()}/" onclick="" >Agregar a Carrito</a>
+                            </button>
+
                         </div>
                     </div>
                 </div>

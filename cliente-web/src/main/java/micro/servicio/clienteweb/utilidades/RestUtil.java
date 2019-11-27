@@ -1,5 +1,6 @@
 package micro.servicio.clienteweb.utilidades;
 
+import micro.servicio.clienteweb.entidades.productos.Orden;
 import micro.servicio.clienteweb.entidades.productos.Plan;
 import micro.servicio.clienteweb.entidades.usuarios.CambiarContrasena;
 import micro.servicio.clienteweb.entidades.usuarios.Usuario;
@@ -114,5 +115,13 @@ public class RestUtil {
         ResponseEntity<Plan> resultado = restTemplate.getForEntity(url, Plan.class);
         return resultado.getBody();
     }
+
+    public ResponseEntity crearOrden(Orden orden){
+        String url = host+"servicio-productos/orden";
+
+        ResponseEntity<Orden> resultado = restTemplate.postForEntity(url, orden, Orden.class);
+        return resultado;
+    }
+
 
 }
