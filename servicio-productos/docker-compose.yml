@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  productos:
+    image: 20102172/servicio-productos-8128
+    networks:
+      - servicio-productos-network
+    ports:
+      - 8128:8128
+    depends_on:
+      - servicio-productosdb
+
+  servicio-productosdb:
+    image: mysql:8
+    networks:
+      - servicio-productos-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=servicio-productosdb
+    volumes:
+      - mysql_db:/var/lib/mysql
+
+volumes:
+  mysql_db:
+
+networks:
+  servicio-productos-network:
