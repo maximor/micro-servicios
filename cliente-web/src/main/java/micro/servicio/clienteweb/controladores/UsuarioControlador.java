@@ -4,6 +4,7 @@ import micro.servicio.clienteweb.entidades.usuarios.Usuario;
 import micro.servicio.clienteweb.utilidades.RestUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -32,5 +33,23 @@ public class UsuarioControlador {
             }
         }
         return "administrador/manejo-usuarios";
+    }
+
+    @RequestMapping("/ver-usuarios")
+    public String verUsuarios(Model modelo){
+        modelo.addAttribute("usuarios", RestUtil.getInstance().getUsuarios());
+        return "administrador/ver-usuario";
+    }
+
+    @RequestMapping("/ver-usuarios/{username}/{codigo}")
+    public String activarODesactivarUsuarios(@PathVariable String username, @PathVariable int codigo){
+        Usuario usuario = RestUtil.getInstance().getUsuario(username);
+        if(codigo == 0){
+            usuario.setActivo(false);
+        }else{
+            usuario.setActivo(true);
+        }
+        RestUtil.getInstance().actualizarUsuario(usuario);
+        return "redirect:/ver-usuarios";
     }
 }

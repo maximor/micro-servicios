@@ -88,6 +88,17 @@ public class RestUtil {
         return resultado;
     }
 
+    public List<Usuario> getUsuarios(){
+        String url = host+"servicio-usuarios/usuarios";
+
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer "+usuarioToken);
+        HttpEntity<Usuario> requestEntity = new HttpEntity<>(null, headers);
+        ResponseEntity<Usuario[]> resultado = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Usuario[].class);
+        return Arrays.asList(resultado.getBody());
+
+    }
+
     //TODO AGREGAR MANEJO DE TOKEN
     //servicio-productos
     public List<Plan> getPlanes(){

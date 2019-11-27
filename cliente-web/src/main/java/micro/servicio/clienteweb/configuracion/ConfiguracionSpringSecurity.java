@@ -33,6 +33,7 @@ public class ConfiguracionSpringSecurity extends WebSecurityConfigurerAdapter {
                         "/images/**",
                         "/libs/**").permitAll()
                 .antMatchers("/login*", "/registro").permitAll()
+                .antMatchers("/usuarios", "/ver-usuarios/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
