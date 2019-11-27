@@ -1,5 +1,8 @@
 package micro.servicioproductos.entidades;
 
+import javax.persistence.Entity;
+
+@Entity
 public class ProductoOrdenado {
 
     private Float cantidad;

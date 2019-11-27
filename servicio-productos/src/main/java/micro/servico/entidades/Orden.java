@@ -1,8 +1,10 @@
 package micro.servicioproductos.entidades;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 import java.util.Set;
 
+@Entity
 public class Orden {
 
     private Producto producto;
@@ -75,7 +77,7 @@ public class Orden {
     public void setProducto(Producto equipo) { this.producto = producto; }
 
     public Set<ProductoOrdenado> getProductos() {
-        return producto;
+        return (Set<ProductoOrdenado>) producto;
     }
 
     public void setProductos(Set<ProductoOrdenado> productos) {
