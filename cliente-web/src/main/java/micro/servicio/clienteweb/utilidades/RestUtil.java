@@ -1,5 +1,6 @@
 package micro.servicio.clienteweb.utilidades;
 
+import micro.servicio.clienteweb.entidades.productos.Estadisticas;
 import micro.servicio.clienteweb.entidades.productos.Orden;
 import micro.servicio.clienteweb.entidades.productos.Plan;
 import micro.servicio.clienteweb.entidades.usuarios.CambiarContrasena;
@@ -169,6 +170,13 @@ public class RestUtil {
         headers.set("Content-Type", "application/json");
         HttpEntity<Orden> requestEntity = new HttpEntity<>(orden, headers);
         ResponseEntity<String> resultado = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
+    }
+
+    public Estadisticas getOrdenEstadisticas(){
+        String url = host+"servicio-productos/estadistica";
+
+        ResponseEntity<Estadisticas> resultado = restTemplate.getForEntity(url, Estadisticas.class);
+        return resultado.getBody();
     }
 
 

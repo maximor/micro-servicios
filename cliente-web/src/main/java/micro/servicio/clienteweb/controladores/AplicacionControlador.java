@@ -24,6 +24,7 @@ public class AplicacionControlador {
             modelo.addAttribute("planesCarrito", planes);
         }
 
+        modelo.addAttribute("estadistica", RestUtil.getInstance().getOrdenEstadisticas());
         modelo.addAttribute("planes", RestUtil.getInstance().getPlanes());
         modelo.addAttribute("usuario", RestUtil.getInstance().getUsuario(principal.getName()));
         return "index";
