@@ -123,5 +123,54 @@ public class RestUtil {
         return resultado;
     }
 
+    public List<Orden> getOrdenesAbiertasPorUsuarios(int userId){
+        String url = host+"servicio-productos/ordenes/abiertas/"+userId;
+
+        ResponseEntity<Orden[]> resultado = restTemplate.getForEntity(url, Orden[].class);
+        Arrays.asList(resultado.getBody()).forEach(orden -> {
+            System.out.println(orden.getEmail());
+        });
+        return Arrays.asList(resultado.getBody());
+    }
+
+    public List<Orden> getOrdenesCerradasPorUsuarios(int userId){
+        String url = host+"servicio-productos/ordenes/cerradas/" + userId;
+
+        ResponseEntity<Orden[]> resultado = restTemplate.getForEntity(url, Orden[].class);
+        return Arrays.asList(resultado.getBody());
+    }
+
+    public List<Orden> getOrdenesAbiertas(){
+        String url = host+"servicio-productos/ordenes/abiertas";
+
+        ResponseEntity<Orden[]> resultado = restTemplate.getForEntity(url, Orden[].class);
+        return Arrays.asList(resultado.getBody());
+    }
+
+    public List<Orden> getOrdenesCerradas(){
+        String url = host+"servicio-productos/ordenes/cerradas";
+
+        ResponseEntity<Orden[]> resultado = restTemplate.getForEntity(url, Orden[].class);
+        return Arrays.asList(resultado.getBody());
+    }
+
+    public Orden getOrdenPorId(int id){
+        String url = host+"servicio-productos/orden/abierta/"+id;
+
+        ResponseEntity<Orden> resultado = restTemplate.getForEntity(url, Orden.class);
+        return resultado.getBody();
+    }
+
+    public void cerrarOrden(int id){
+        String url = host+"servicio-productos/orden/cerrar/"+id;
+        Orden orden = getOrdenPorId(id);
+
+        headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+        HttpEntity<Orden> requestEntity = new HttpEntity<>(orden, headers);
+        ResponseEntity<String> resultado = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
+    }
+
+
 
 }

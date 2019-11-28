@@ -8,7 +8,8 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav" class="p-t-30">
                 <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/" aria-expanded="false"><i class="ti-dashboard"></i><span class="hide-menu">Tablero</span></a></li>
-                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="charts.html" aria-expanded="false"><i class="ti-list"></i><span class="hide-menu">Mis Compras</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/mis-pedidos" aria-expanded="false"><i class="ti-list"></i><span class="hide-menu">Mis Pedidos</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/cerrar-pedido" aria-expanded="false"><i class="ti-list-ol"></i><span class="hide-menu">Pedidos</span></a></li>
 <#--                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="widgets.html" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Widgets</span></a></li>-->
 <#--                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="tables.html" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Tables</span></a></li>-->
 <#--                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="grid.html" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Full Width</span></a></li>-->
@@ -41,15 +42,12 @@
 <#--                        <li class="sidebar-item"><a href="authentication-register.html" class="sidebar-link"><i class="mdi mdi-all-inclusive"></i><span class="hide-menu"> Register </span></a></li>-->
 <#--                    </ul>-->
 <#--                </li>-->
-                <#if usuario?? && usuario.getRoles()[0].getNombre() == "ROLE_ADMIN">
                     <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Manejo de Usuarios </span></a>
                         <ul aria-expanded="false" class="collapse  first-level">
                             <li class="sidebar-item"><a href="/usuarios" class="sidebar-link"><i class="fas fa-circle"></i><span class="hide-menu"> Crear Empleados </span></a></li>
                             <li class="sidebar-item"><a href="/ver-usuarios" class="sidebar-link"><i class="fas fa-circle"></i><span class="hide-menu"> Ver Empleados </span></a></li>
                         </ul>
                     </li>
-                </#if>
-
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

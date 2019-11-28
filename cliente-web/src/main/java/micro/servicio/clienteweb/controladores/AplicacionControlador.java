@@ -140,6 +140,39 @@ public class AplicacionControlador {
         return "pagar";
     }
 
+    @RequestMapping("/mis-pedidos")
+    public String misPedidos(Principal principal, Model modelo){
+        Usuario usuario = RestUtil.getInstance().getUsuario(principal.getName());
+        modelo.addAttribute("ordenesAbiertas", RestUtil.getInstance().getOrdenesAbiertasPorUsuarios(usuario.getId()));
+//        modelo.addAttribute("ordenesCerradas", RestUtil.getInstance().getOrdenesCerradasPorUsuarios(usuario.getId()));
+        modelo.addAttribute("usuario", usuario);
+
+        return "mis-pedidos";
+    }
+
+
+    //CONTROL PARA LOS USUARIOS EMPLEADOS
+    @RequestMapping("/cerrar-pedido")
+    public String asignarPedidos(Principal principal, Model modelo){
+        Usuario usuario = RestUtil.getInstance().getUsuario(principal.getName());
+
+        modelo.addAttribute("ordenes", RestUtil.getInstance().getOrdenesAbiertas());
+        modelo.addAttribute("ordenesCerradas", RestUtil.getInstance().getOrdenesCerradas());
+        modelo.addAttribute("usario", usuario);
+        return "empleados/asignar-pedidos";
+    }
+
+    @RequestMapping("/cerrar-pedido/{id}")
+    public String cerrarPedido(@PathVariable int id){
+        RestUtil.getInstance().cerrarOrden(id);
+        return "redirect:/cerrar-pedido";
+    }
+
+
+    @RequestMapping("/denegado")
+    public String denegado(){
+        return "denegado";
+    }
     //ideal cuando planes existe solo en la sesion
     private List<Plan> calcularCantidadPlanes(List<Plan> planes, String nombrePlan){
         boolean estado = false;
