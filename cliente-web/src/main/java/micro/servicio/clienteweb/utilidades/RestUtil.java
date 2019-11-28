@@ -24,7 +24,7 @@ public class RestUtil {
 
     private String usuarioToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiJ9.a3Eut26boxzlWFPn7l7JOWDcJAN_o024HJpWMjtjjt4";
 
-    private String productoToken;
+    private String productoToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiJ9.nRar0a9irX7g_8UMj5A7zxZ0OX0e8OBJhGT6rZZtDxw";
 
     private String notificacionToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiJ9.u3ptgDCEC_kTry8VWMRW2ooZjqzcZEmNA4MRyXDn6FU";
 
@@ -113,61 +113,84 @@ public class RestUtil {
 
     }
 
-    //TODO AGREGAR MANEJO DE TOKEN
     //SERVICIO-PRODUCTOS
     public List<Plan> getPlanes(){
         String url = host+"servicio-productos/planes";
 
-        ResponseEntity<Plan[]> resultado = restTemplate.getForEntity(url, Plan[].class);
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer "+productoToken);
+        HttpEntity<Usuario> requestEntity = new HttpEntity<>(null, headers);
+        ResponseEntity<Plan[]> resultado = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Plan[].class);
         return Arrays.asList(resultado.getBody());
     }
 
     public Plan getPlanPorNombre(String nombre){
         String url = host+"servicio-productos/plan/"+nombre;
 
-        ResponseEntity<Plan> resultado = restTemplate.getForEntity(url, Plan.class);
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer "+productoToken);
+        HttpEntity<Usuario> requestEntity = new HttpEntity<>(null, headers);
+        ResponseEntity<Plan> resultado = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Plan.class);
         return resultado.getBody();
     }
 
     public ResponseEntity crearOrden(Orden orden){
         String url = host+"servicio-productos/orden";
 
-        ResponseEntity<Orden> resultado = restTemplate.postForEntity(url, orden, Orden.class);
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer "+productoToken);
+        HttpEntity<Orden> requestEntity = new HttpEntity<>(orden, headers);
+        ResponseEntity<Orden> resultado = restTemplate.postForEntity(url, requestEntity, Orden.class);
         return resultado;
     }
 
     public List<Orden> getOrdenesAbiertasPorUsuarios(int userId){
         String url = host+"servicio-productos/ordenes/abiertas/"+userId;
 
-        ResponseEntity<Orden[]> resultado = restTemplate.getForEntity(url, Orden[].class);
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer "+productoToken);
+        HttpEntity<Usuario> requestEntity = new HttpEntity<>(null, headers);
+        ResponseEntity<Orden[]> resultado = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Orden[].class);
         return Arrays.asList(resultado.getBody());
     }
 
     public List<Orden> getOrdenesCerradasPorUsuarios(int userId){
         String url = host+"servicio-productos/ordenes/cerradas/" + userId;
 
-        ResponseEntity<Orden[]> resultado = restTemplate.getForEntity(url, Orden[].class);
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer "+productoToken);
+        HttpEntity<Usuario> requestEntity = new HttpEntity<>(null, headers);
+        ResponseEntity<Orden[]> resultado = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Orden[].class);
         return Arrays.asList(resultado.getBody());
     }
 
     public List<Orden> getOrdenesAbiertas(){
         String url = host+"servicio-productos/ordenes/abiertas";
 
-        ResponseEntity<Orden[]> resultado = restTemplate.getForEntity(url, Orden[].class);
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer "+productoToken);
+        HttpEntity<Usuario> requestEntity = new HttpEntity<>(null, headers);
+        ResponseEntity<Orden[]> resultado = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Orden[].class);
         return Arrays.asList(resultado.getBody());
     }
 
     public List<Orden> getOrdenesCerradas(){
         String url = host+"servicio-productos/ordenes/cerradas";
 
-        ResponseEntity<Orden[]> resultado = restTemplate.getForEntity(url, Orden[].class);
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer "+productoToken);
+        HttpEntity<Usuario> requestEntity = new HttpEntity<>(null, headers);
+        ResponseEntity<Orden[]> resultado = restTemplate.exchange(url, HttpMethod.GET, requestEntity,  Orden[].class);
         return Arrays.asList(resultado.getBody());
     }
 
     public Orden getOrdenPorId(int id){
         String url = host+"servicio-productos/orden/abierta/"+id;
 
-        ResponseEntity<Orden> resultado = restTemplate.getForEntity(url, Orden.class);
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer "+productoToken);
+        HttpEntity<Usuario> requestEntity = new HttpEntity<>(null, headers);
+        ResponseEntity<Orden> resultado = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Orden.class);
         return resultado.getBody();
     }
 
@@ -177,6 +200,7 @@ public class RestUtil {
 
         headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
+        headers.set("Authorization", "Bearer "+productoToken);
         HttpEntity<Orden> requestEntity = new HttpEntity<>(orden, headers);
         ResponseEntity<String> resultado = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
     }
@@ -184,7 +208,10 @@ public class RestUtil {
     public Estadisticas getOrdenEstadisticas(){
         String url = host+"servicio-productos/estadistica";
 
-        ResponseEntity<Estadisticas> resultado = restTemplate.getForEntity(url, Estadisticas.class);
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer "+productoToken);
+        HttpEntity<Usuario> requestEntity = new HttpEntity<>(null, headers);
+        ResponseEntity<Estadisticas> resultado = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Estadisticas.class);
         return resultado.getBody();
     }
 
@@ -198,7 +225,6 @@ public class RestUtil {
         headers.set("Authorization", "Bearer " + notificacionToken);
         HttpEntity<Notificacion> requestEntity = new HttpEntity<>(notificacion, headers);
         ResponseEntity<Notificacion> resultado = restTemplate.postForEntity(url, requestEntity, Notificacion.class);
-        System.out.println(resultado.getBody().getEmisor());
         return resultado.getBody();
     }
 
