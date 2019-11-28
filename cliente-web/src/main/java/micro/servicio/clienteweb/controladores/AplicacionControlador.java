@@ -145,7 +145,7 @@ public class AplicacionControlador {
     public String misPedidos(Principal principal, Model modelo){
         Usuario usuario = RestUtil.getInstance().getUsuario(principal.getName());
         modelo.addAttribute("ordenesAbiertas", RestUtil.getInstance().getOrdenesAbiertasPorUsuarios(usuario.getId()));
-//        modelo.addAttribute("ordenesCerradas", RestUtil.getInstance().getOrdenesCerradasPorUsuarios(usuario.getId()));
+        modelo.addAttribute("ordenesCerradas", RestUtil.getInstance().getOrdenesCerradasPorUsuarios(usuario.getId()));
         modelo.addAttribute("usuario", usuario);
 
         return "mis-pedidos";

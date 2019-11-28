@@ -128,9 +128,6 @@ public class RestUtil {
         String url = host+"servicio-productos/ordenes/abiertas/"+userId;
 
         ResponseEntity<Orden[]> resultado = restTemplate.getForEntity(url, Orden[].class);
-        Arrays.asList(resultado.getBody()).forEach(orden -> {
-            System.out.println(orden.getEmail());
-        });
         return Arrays.asList(resultado.getBody());
     }
 
