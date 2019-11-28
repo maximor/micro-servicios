@@ -1,5 +1,6 @@
 package micro.servicio.clienteweb.controladores;
 
+import micro.servicio.clienteweb.entidades.notificaciones.Notificacion;
 import micro.servicio.clienteweb.entidades.usuarios.Usuario;
 import micro.servicio.clienteweb.utilidades.RestUtil;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,24 @@ public class UsuarioControlador {
             try{
                 RestUtil.getInstance().crearUsuarioEmpleado(usuario);
                 modelo.addAttribute("mensajeExitoso", "Empleado Creado Exitosamente");
+
+                //formamos el correo
+                Notificacion notificacion = new Notificacion();
+                notificacion.setEmisor(RestUtil.getInstance().getNotificacionEmisor());
+                notificacion.setReceptor(usuario.getEmail());
+                notificacion.setAsunto("[Matrix Foto Estudio] Creación de Empleado " + usuario.getNombre());
+                notificacion.setCuerpo(
+                        "<h2>Hola</h2> <h4>"+usuario.getNombre()+"</h4>\n\n" +
+                                "<p>Ya eres parte de nuestro equipo.\n" +
+                                "\n\n" +
+                                "<h2>Información del usuario:</h2>\n" +
+                                "<p>Usuario: " + usuario.getUsername() + " </p>\n"+
+                                "<p>Contraseña: "+ usuario.getPassword() +" </p>\n\n" +
+                                "<h3>Inicia Sesión y Cambia tu contraseña</h3>\n"+
+                                "<a href='http://localhost/login'>Matrix Foto Estudio</a>");
+
+                Notificacion notificacionEmail = RestUtil.getInstance().crearCorreo(notificacion);
+
                 return "administrador/manejo-usuarios";
             }catch (Exception ee){
                 ee.getStackTrace();
