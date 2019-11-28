@@ -34,7 +34,7 @@ public class ConfiguracionSpringSecurity extends WebSecurityConfigurerAdapter {
                         "/libs/**").permitAll()
                 .antMatchers("/login*", "/registro").permitAll()
                 .antMatchers("/usuarios", "/ver-usuarios/**").hasRole("ADMIN")
-                .antMatchers("/cerrar-pedidos/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .antMatchers("/cerrar-pedido/**").hasAnyRole("EMPLEADO", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

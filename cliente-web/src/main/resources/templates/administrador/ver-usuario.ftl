@@ -69,3 +69,11 @@
 
 </div>
 <#include "../menu/footer.ftl">
+
+<script>
+    /****************************************
+     *       Basic Table                   *
+     ****************************************/
+    $('#zero_config').DataTable();
+    $('#zero_config1').DataTable();
+</script>
