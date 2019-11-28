@@ -1,5 +1,6 @@
 package micro.servicio.clienteweb.controladores;
 
+import micro.servicio.clienteweb.entidades.notificaciones.Notificacion;
 import micro.servicio.clienteweb.entidades.productos.Orden;
 import micro.servicio.clienteweb.entidades.productos.Plan;
 import micro.servicio.clienteweb.entidades.usuarios.Usuario;
@@ -164,8 +165,23 @@ public class AplicacionControlador {
     }
 
     @RequestMapping("/cerrar-pedido/{id}")
-    public String cerrarPedido(@PathVariable int id){
+    public String cerrarPedido(@PathVariable int id, Principal principal){
+        Usuario usuario = RestUtil.getInstance().getUsuario(principal.getName());
+        Orden orden = RestUtil.getInstance().getOrdenPorId(id);
         RestUtil.getInstance().cerrarOrden(id);
+
+        //formamos el correo
+        Notificacion notificacion = new Notificacion();
+        notificacion.setEmisor(RestUtil.getInstance().getNotificacionEmisor());
+        notificacion.setReceptor(orden.getEmail());
+        notificacion.setAsunto("[Matrix Foto Estudio] Cierre de Orden #" + orden.getId());
+        notificacion.setCuerpo(
+                "<h2>Hola</h2> <h4>"+usuario.getNombre()+"</h4>\n\n" +
+                        "<p>Se ha Cerrado la orden #"+orden .getId() +
+                        "\n\n" +
+                        "<h2>Gracias por usar nuestros servicios</h2>");
+
+        Notificacion notificacionEmail = RestUtil.getInstance().crearCorreo(notificacion);
         return "redirect:/cerrar-pedido";
     }
 
