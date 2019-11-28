@@ -1,5 +1,6 @@
 package micro.servicio.clienteweb.utilidades;
 
+import micro.servicio.clienteweb.entidades.notificaciones.Notificacion;
 import micro.servicio.clienteweb.entidades.productos.Estadisticas;
 import micro.servicio.clienteweb.entidades.productos.Orden;
 import micro.servicio.clienteweb.entidades.productos.Plan;
@@ -25,7 +26,10 @@ public class RestUtil {
 
     private String productoToken;
 
-    private String notificacionToken;
+    private String notificacionToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiJ9.u3ptgDCEC_kTry8VWMRW2ooZjqzcZEmNA4MRyXDn6FU";
+
+    //Este es el correro que skarkPost utiliza para enviar los correos
+    private String notificacionEmisor = "20102172@maximorodriguez.me";
 
     private RestUtil(){ }
 
@@ -36,6 +40,14 @@ public class RestUtil {
         }
 
         return restUtil;
+    }
+
+    public String getNotificacionEmisor() {
+        return notificacionEmisor;
+    }
+
+    public void setNotificacionEmisor(String notificacionEmisor) {
+        this.notificacionEmisor = notificacionEmisor;
     }
 
     public Usuario getUsuario(String username){
@@ -102,7 +114,7 @@ public class RestUtil {
     }
 
     //TODO AGREGAR MANEJO DE TOKEN
-    //servicio-productos
+    //SERVICIO-PRODUCTOS
     public List<Plan> getPlanes(){
         String url = host+"servicio-productos/planes";
 
@@ -177,5 +189,17 @@ public class RestUtil {
     }
 
 
+
+    //SERVICIO-NOTIFICACIONES
+    public Notificacion crearCorreo(Notificacion notificacion){
+        String url = host+"servicio-notificaciones/notificacion";
+
+        headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + notificacionToken);
+        HttpEntity<Notificacion> requestEntity = new HttpEntity<>(notificacion, headers);
+        ResponseEntity<Notificacion> resultado = restTemplate.postForEntity(url, requestEntity, Notificacion.class);
+        System.out.println(resultado.getBody().getEmisor());
+        return resultado.getBody();
+    }
 
 }
